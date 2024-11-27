@@ -17,7 +17,7 @@ function formatToCustomUTCString(timestamp) {
 
   // Validate if the date is valid
   if (isNaN(date.getTime())) {
-    return;
+    // return;
   }
 
   // Array of weekday and month names for formatting
@@ -54,7 +54,7 @@ app.get("/api", function(req, res) {
   let date = new Date();
   if(isInvalidDate(date)) {
     res.json({ error : "Invalid Date" });
-    return;
+    // return;
   };
   const unix = Math.floor(date.getTime());
   const utc = date.toISOString();
@@ -76,7 +76,7 @@ app.get("/api/:date?", function(req, res) {
 
   if(isInvalidDate(date)) {
     res.json({ error : "Invalid Date" });
-    return;
+    // return;
   }
 
   const unix = Math.floor(date.getTime());
