@@ -1,7 +1,3 @@
-// index.js
-// where your node app starts
-
-// init project
 var express = require('express');
 var app = express();
 
@@ -52,6 +48,7 @@ app.get("/", function (req, res) {
 
 app.get("/api", function(req, res) {
   let date = new Date();
+
   if(isInvalidDate(date)) res.json({ error : "Invalid Date" });
   else {
     const unix = Math.floor(date.getTime());
@@ -67,17 +64,14 @@ app.get("/api/:date?", function(req, res) {
 
   if (isNumeric(req.params.date)) {
     date = req.params.date ? new Date(Number(date)) : new Date();
-    console.error(date)
   } else {
     date = req.params.date ? new Date(req.params.date) : new Date();
-    console.error(date)
   }
 
   if(isInvalidDate(date)) res.json({ error : "Invalid Date" });
   else {
     const unix = Math.floor(date.getTime());
     const utc = formatToCustomUTCString(date);
-    console.error(typeof Number(unix))
     const response = { unix: Number(unix), utc: utc };
 
     res.json(response);
