@@ -52,7 +52,10 @@ app.get("/", function (req, res) {
 
 app.get("/api", function(req, res) {
   let date = new Date();
-  if(isInvalidDate(date)) res.json({ error : "Invalid Date" });
+  if(isInvalidDate(date)) {
+    res.json({ error : "Invalid Date" });
+    return;
+  };
   const unix = Math.floor(date.getTime());
   const utc = date.toISOString();
   const response = { unix: Number(unix), utc: utc };
@@ -71,11 +74,13 @@ app.get("/api/:date?", function(req, res) {
     console.error(date)
   }
 
-  if(isInvalidDate(date)) res.json({ error : "Invalid Date" });
+  if(isInvalidDate(date)) {
+    res.json({ error : "Invalid Date" });
+    return;
+  }
 
   const unix = Math.floor(date.getTime());
   const utc = formatToCustomUTCString(date);
-  console.error(typeof Number(unix))
   const response = { unix: Number(unix), utc: utc };
 
   res.json(response);
